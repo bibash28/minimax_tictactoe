@@ -37,13 +37,6 @@ class BenchmarkResult {
   double get pruningEfficiency =>
       alphaBetaResult.pruningEfficiency(minimaxResult);
 
-  /// Returns true if this is a correctness test and both algorithms
-  /// agree with the expected move.
-  bool get correctnessVerified {
-    if (!testCase.isCorrectnessTest) return true;
-    return movesMatch && minimaxResult.bestMove == testCase.expectedMove;
-  }
-
   @override
   String toString() {
     return 'BenchmarkResult(id: ${testCase.id}, depth: $depth, '

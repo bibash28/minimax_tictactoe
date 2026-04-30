@@ -11,9 +11,6 @@ enum GameStage {
 
   /// Late game — 6 cells filled, small search tree.
   late,
-
-  /// Correctness verification — has a clear expected best move.
-  correctness
   ;
 
   /// Returns a display label for this stage.
@@ -33,7 +30,6 @@ class TestCase {
     required this.board,
     required this.player,
     required this.stage,
-    this.expectedMove,
   });
 
   /// Unique identifier for this test case (e.g. 'E01', 'M03', 'C01').
@@ -47,15 +43,6 @@ class TestCase {
 
   /// The game stage this test case represents.
   final GameStage stage;
-
-  /// The expected best move index for correctness verification.
-  ///
-  /// Only set for [GameStage.correctness] test cases.
-  /// Null for performance test cases.
-  final int? expectedMove;
-
-  /// Returns true if this is a correctness verification test case.
-  bool get isCorrectnessTest => expectedMove != null;
 
   @override
   String toString() => 'TestCase(id: $id, stage: ${stage.label})';

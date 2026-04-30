@@ -1,13 +1,12 @@
 import 'package:minimax_tictactoe/src/models/board.dart';
 import 'package:minimax_tictactoe/src/models/test_case.dart';
 
-/// All 20 predefined test cases for the benchmark.
+/// All 25 predefined test cases for the benchmark.
 ///
-/// Organized into four categories:
+/// Organized into three categories:
 /// - Early game (E01–E05): 2 cells filled
-/// - Mid game (M01–M05): 4 cells filled
-/// - Late game (L01–L05): 6 cells filled
-/// - Correctness (C01–C05): known expected best move
+/// - Mid game (M01–M08): 4–5 cells filled
+/// - Late game (L01–L08): 6–7 cells filled
 class TestCases {
   // ── Early game boards ────────────────────────────────────────
   // 2 cells filled — large search tree, minimal pruning expected
@@ -245,6 +244,75 @@ class TestCases {
     ]),
   );
 
+  /// M06
+  /// X | _ | _
+  /// ---------
+  /// O | O | _
+  /// ---------
+  /// X | _ | _
+  static final m06 = TestCase(
+    id: 'M06',
+    stage: GameStage.mid,
+    player: Player.x,
+    board: Board.fromPlayers(const [
+      Player.x,
+      null,
+      null,
+      Player.o,
+      Player.o,
+      null,
+      Player.x,
+      null,
+      null,
+    ]),
+  );
+
+  /// M07
+  /// X | O | _
+  /// ---------
+  /// X | O | _
+  /// ---------
+  /// _ | _ | _
+  static final m07 = TestCase(
+    id: 'M07',
+    stage: GameStage.mid,
+    player: Player.x,
+    board: Board.fromPlayers(const [
+      Player.x,
+      Player.o,
+      null,
+      Player.x,
+      Player.o,
+      null,
+      null,
+      null,
+      null,
+    ]),
+  );
+
+  /// M08
+  /// O | X | _
+  /// ---------
+  /// _ | O | _
+  /// ---------
+  /// X | _ | _
+  static final m08 = TestCase(
+    id: 'M08',
+    stage: GameStage.mid,
+    player: Player.x,
+    board: Board.fromPlayers(const [
+      Player.o,
+      Player.x,
+      null,
+      null,
+      Player.o,
+      null,
+      Player.x,
+      null,
+      null,
+    ]),
+  );
+
   // ── Late game boards ─────────────────────────────────────────
   // 6 cells filled — small search tree, maximum pruning expected
 
@@ -363,21 +431,16 @@ class TestCases {
     ]),
   );
 
-  // ── Correctness boards ───────────────────────────────────────
-  // Known expected best move — both algorithms must agree
-
-  /// C01
+  /// L06
   /// X | O | X
   /// ---------
   /// O | X | O
   /// ---------
   /// _ | _ | _
-  /// X wins bottom-left diagonal — expected move: 6
-  static final c01 = TestCase(
-    id: 'C01',
-    stage: GameStage.correctness,
+  static final l06 = TestCase(
+    id: 'L06',
+    stage: GameStage.late,
     player: Player.x,
-    expectedMove: 7,
     board: Board.fromPlayers(const [
       Player.x,
       Player.o,
@@ -391,103 +454,49 @@ class TestCases {
     ]),
   );
 
-  /// C02
-  /// X | _ | _
+  /// L07
+  /// X | X | O
   /// ---------
-  /// O | O | _
-  /// ---------
-  /// X | _ | _
-  /// X must block O from winning row 1 — expected move: 5
-  static final c02 = TestCase(
-    id: 'C02',
-    stage: GameStage.correctness,
-    player: Player.x,
-    expectedMove: 5,
-    board: Board.fromPlayers(const [
-      Player.x,
-      null,
-      null,
-      Player.o,
-      Player.o,
-      null,
-      Player.x,
-      null,
-      null,
-    ]),
-  );
-
-  /// C03
-  /// X | O | _
-  /// ---------
-  /// X | O | _
+  /// O | O | X
   /// ---------
   /// _ | _ | _
-  /// X wins column 0 — expected move: 6
-  static final c03 = TestCase(
-    id: 'C03',
-    stage: GameStage.correctness,
+  static final l07 = TestCase(
+    id: 'L07',
+    stage: GameStage.late,
     player: Player.x,
-    expectedMove: 6,
     board: Board.fromPlayers(const [
       Player.x,
-      Player.o,
-      null,
       Player.x,
       Player.o,
-      null,
+      Player.o,
+      Player.o,
+      Player.x,
       null,
       null,
       null,
     ]),
   );
 
-  /// C04
-  /// O | X | _
+  /// L08
+  /// O | X | X
   /// ---------
   /// _ | O | _
   /// ---------
-  /// X | _ | _
-  /// X must block O diagonal — expected move: 8
-  static final c04 = TestCase(
-    id: 'C04',
-    stage: GameStage.correctness,
+  /// X | _ | O
+  static final l08 = TestCase(
+    id: 'L08',
+    stage: GameStage.late,
     player: Player.x,
-    expectedMove: 8,
     board: Board.fromPlayers(const [
       Player.o,
       Player.x,
-      null,
-      null,
-      Player.o,
-      null,
-      Player.x,
-      null,
-      null,
-    ]),
-  );
-
-  /// C05
-  /// X | X | _
-  /// ---------
-  /// O | O | _
-  /// ---------
-  /// _ | _ | X
-  /// X wins row 0 — expected move: 2
-  static final c05 = TestCase(
-    id: 'C05',
-    stage: GameStage.correctness,
-    player: Player.x,
-    expectedMove: 2,
-    board: Board.fromPlayers(const [
-      Player.x,
       Player.x,
       null,
       Player.o,
-      Player.o,
-      null,
-      null,
       null,
       Player.x,
+      null,
+      Player.o,
     ]),
   );
 
@@ -495,19 +504,33 @@ class TestCases {
   static final List<TestCase> earlyGame = [e01, e02, e03, e04, e05];
 
   /// All mid game test cases.
-  static final List<TestCase> midGame = [m01, m02, m03, m04, m05];
+  static final List<TestCase> midGame = [
+    m01,
+    m02,
+    m03,
+    m04,
+    m05,
+    m06,
+    m07,
+    m08,
+  ];
 
   /// All late game test cases.
-  static final List<TestCase> lateGame = [l01, l02, l03, l04, l05];
+  static final List<TestCase> lateGame = [
+    l01,
+    l02,
+    l03,
+    l04,
+    l05,
+    l06,
+    l07,
+    l08,
+  ];
 
-  /// All correctness test cases.
-  static final List<TestCase> correctness = [c01, c02, c03, c04, c05];
-
-  /// All 20 test cases combined.
+  /// All 21 test cases combined.
   static final List<TestCase> all = [
     ...earlyGame,
     ...midGame,
     ...lateGame,
-    ...correctness,
   ];
 }

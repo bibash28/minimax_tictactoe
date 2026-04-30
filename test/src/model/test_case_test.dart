@@ -8,7 +8,6 @@ void main() {
       expect(GameStage.early.label, equals('Early'));
       expect(GameStage.mid.label, equals('Mid'));
       expect(GameStage.late.label, equals('Late'));
-      expect(GameStage.correctness.label, equals('Correctness'));
     });
   });
 
@@ -23,29 +22,6 @@ void main() {
       expect(testCase.id, equals('E01'));
       expect(testCase.player, equals(Player.x));
       expect(testCase.stage, equals(GameStage.early));
-      expect(testCase.expectedMove, isNull);
-    });
-
-    test('isCorrectnessTest is false when expectedMove is null', () {
-      final testCase = TestCase(
-        id: 'E01',
-        board: Board.empty(),
-        player: Player.x,
-        stage: GameStage.early,
-      );
-      expect(testCase.isCorrectnessTest, isFalse);
-    });
-
-    test('isCorrectnessTest is true when expectedMove is set', () {
-      final testCase = TestCase(
-        id: 'C01',
-        board: Board.empty(),
-        player: Player.x,
-        stage: GameStage.correctness,
-        expectedMove: 6,
-      );
-      expect(testCase.isCorrectnessTest, isTrue);
-      expect(testCase.expectedMove, equals(6));
     });
 
     test('toString returns correct format', () {

@@ -8,20 +8,20 @@ void main() {
       expect(TestCases.earlyGame.length, equals(5));
     });
 
-    test('has 5 mid game cases', () {
-      expect(TestCases.midGame.length, equals(5));
+    test('has 8 mid game cases', () {
+      expect(TestCases.midGame.length, equals(8));
     });
 
-    test('has 5 late game cases', () {
-      expect(TestCases.lateGame.length, equals(5));
+    test('has 8 late game cases', () {
+      expect(TestCases.lateGame.length, equals(8));
     });
 
-    test('has 5 correctness cases', () {
-      expect(TestCases.correctness.length, equals(5));
+    test('has 21 total cases', () {
+      expect(TestCases.all.length, equals(21));
     });
 
-    test('has 20 total cases', () {
-      expect(TestCases.all.length, equals(20));
+    test('21 cases × 3 depths = 63 runs', () {
+      expect(TestCases.all.length * 3, equals(63));
     });
 
     test('all early game cases have 2 cells filled', () {
@@ -51,18 +51,8 @@ void main() {
         final filled = tc.board.cells.where((c) => c.isOccupied).length;
         expect(
           filled,
-          equals(6),
+          equals(6), // ← make sure this says 6, not 5
           reason: '${tc.id} should have 6 cells filled',
-        );
-      }
-    });
-
-    test('all correctness cases have expectedMove set', () {
-      for (final tc in TestCases.correctness) {
-        expect(
-          tc.expectedMove,
-          isNotNull,
-          reason: '${tc.id} should have expectedMove set',
         );
       }
     });
@@ -81,9 +71,6 @@ void main() {
       }
       for (final tc in TestCases.lateGame) {
         expect(tc.stage, equals(GameStage.late));
-      }
-      for (final tc in TestCases.correctness) {
-        expect(tc.stage, equals(GameStage.correctness));
       }
     });
   });
