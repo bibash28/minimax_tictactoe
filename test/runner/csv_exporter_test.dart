@@ -30,8 +30,8 @@ void main() {
     test('creates file at output path', () async {
       final results = _mockResults();
       await exporter.export(results, testOutputPath);
-      // Using async file existence check in tearDown is acceptable
-      // in tests where we need to verify and clean up test output files.
+      // Using async file existence check is necessary here to verify
+      // that the exporter actually created the file on disk.
       // ignore: avoid_slow_async_io
       expect(await File(testOutputPath).exists(), isTrue);
     });
@@ -43,7 +43,7 @@ void main() {
       expect(
         content,
         contains(
-          'ID,Stage,Depth,MM_Nodes,AB_Nodes,MM_Time_us,AB_Time_us,'
+          'SN,ID,Stage,Depth,MM_Nodes,AB_Nodes,MM_Time_us,AB_Time_us,'
           'Pruning_Efficiency_%,Moves_Match,MM_BestMove,AB_BestMove',
         ),
       );
@@ -74,6 +74,14 @@ void main() {
       await exporter.export(results, testOutputPath);
       final content = await File(testOutputPath).readAsString();
       expect(content, contains('60.00'));
+    });
+
+    test('row contains serial number', () async {
+      final results = _mockResults();
+      await exporter.export(results, testOutputPath);
+      final content = await File(testOutputPath).readAsString();
+      expect(content, contains('1,E01'));
+      expect(content, contains('2,E01'));
     });
   });
 }

@@ -12,7 +12,7 @@ class CsvExporter {
 
   /// The CSV header row.
   static const String _header =
-      'ID,Stage,Depth,MM_Nodes,AB_Nodes,MM_Time_us,AB_Time_us,'
+      'SN,ID,Stage,Depth,MM_Nodes,AB_Nodes,MM_Time_us,AB_Time_us,'
       'Pruning_Efficiency_%,Moves_Match,MM_BestMove,AB_BestMove';
 
   /// Exports [results] to a CSV file at [outputPath].
@@ -27,16 +27,18 @@ class CsvExporter {
 
     final buffer = StringBuffer()..writeln(_header);
 
+    var sn = 1;
     for (final r in results) {
-      buffer.writeln(_toRow(r));
+      buffer.writeln(_toRow(r, sn++));
     }
 
     await file.writeAsString(buffer.toString());
   }
 
   /// Converts a single [BenchmarkResult] to a CSV row.
-  String _toRow(BenchmarkResult r) {
-    return '${r.testCase.id},'
+  String _toRow(BenchmarkResult r, int sn) {
+    return '$sn,'
+        '${r.testCase.id},'
         '${r.testCase.stage.label},'
         '${r.depth},'
         '${r.minimaxResult.nodesExplored},'
