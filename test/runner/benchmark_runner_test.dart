@@ -20,9 +20,9 @@ void main() {
       expect(results.map((r) => r.depth).toList(), equals([1, 2, 3]));
     });
 
-    test('returns 60 results for 20 test cases', () {
+    test('returns 63 results for 21 test cases', () {
       final results = runner.run(TestCases.all);
-      expect(results.length, equals(60));
+      expect(results.length, equals(63));
     });
 
     test('all results have nodesExplored greater than zero', () {
