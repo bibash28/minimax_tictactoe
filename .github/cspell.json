@@ -1,5 +1,6 @@
 {
   "version": "0.2",
+  "language": "en",
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "dictionaries": ["vgv_allowed", "vgv_forbidden"],
   "dictionaryDefinitions": [
@@ -15,6 +16,5 @@
     }
   ],
   "useGitignore": true,
-  "words": [
-  ]
+  "words": ["tictactoe", "minimax", "alphabeta"]
 }
